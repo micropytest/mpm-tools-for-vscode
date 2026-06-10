@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "The package.json file schema.",
+  "description": "The JSON Schema for the package.json file.",
+  "$defs": {},
+  "type": "object",
+  "required": ["version", "urls", "deps"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Package version."
+    },
+    "urls": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": { "type": "string" },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "description": "Files to copy from source to destination."
+    },
+    "deps": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": { "type": "string" },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "description": "Dependencies: [package, tag]."
+    }
+  }
+}

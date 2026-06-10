@@ -1,0 +1,60 @@
+{
+  "name": "mpm-tools",
+  "version": "2026.6.0",
+  "author": "Pythonic Labs",
+  "publisher": "pythoniclabs",
+  "displayName": "mpm Tools",
+  "description": "Tools for working with mpm (Micro Package Manager).",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "keywords": [
+    "MicroPython",
+    "package manager"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/micropytest/mpm-tools-for-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/micropytest/mpm-tools-for-vscode/issues"
+  },
+  "homepage": "https://mpmi.dev",
+  "contributes": {
+    "jsonValidation": [
+      {
+        "fileMatch": "mpm*.json",
+        "url": "./schemas/schema-mpm.json"
+      },
+      {
+        "fileMatch": "package.json",
+        "url": "./schemas/schema-package.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "ignore",
+        "path": "./snippets/snippets-ignore.json"
+      },
+      {
+        "language": "json",
+        "path": "./snippets/snippets-json.json"
+      },
+      {
+        "language": "jsonc",
+        "path": "./snippets/snippets-jsonc.json"
+      },
+      {
+        "language": "markdown",
+        "path": "./snippets/snippets-md.json"
+      },
+      {
+        "language": "toml",
+        "path": "./snippets/snippets-toml.json"
+      }
+    ]
+  }
+}

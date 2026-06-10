@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo "files.txt updated!"
+find mpm-tools -type f > files.txt

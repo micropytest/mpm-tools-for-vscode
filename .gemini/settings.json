@@ -1,0 +1,10 @@
+{
+  "contextFile": ".gemini/GEMINI.md",
+  "excludeTools": [],
+  "commands": {
+    "sync": {
+      "command": "scripts/sync",
+      "description": "Sync the file files.txt."
+    }
+  }
+}

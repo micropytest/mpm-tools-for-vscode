@@ -1,0 +1,9 @@
+mpm-tools/README.md
+mpm-tools/package.json
+mpm-tools/snippets/snippets-toml.json
+mpm-tools/snippets/snippets-ignore.json
+mpm-tools/snippets/snippets-json.json
+mpm-tools/snippets/snippets-md.json
+mpm-tools/snippets/snippets-jsonc.json
+mpm-tools/schemas/schema-package.json
+mpm-tools/schemas/schema-mpm.json

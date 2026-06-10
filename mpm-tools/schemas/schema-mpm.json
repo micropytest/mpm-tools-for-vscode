@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "The mpm file schema.",
+  "description": "The JSON Schema for the mpm.json file.",
+  "$defs": {
+    "DepUrl": {
+      "type": "string",
+      "pattern": "^(fs|lib|github|mpmi(@[a-zA-Z0-9_]+)?)://[a-zA-Z0-9_-]+$",
+      "description": "Dependency URL: fs://, lib://, github://, mpmi:// or mpmi@index://."
+    },
+    "Deps": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/DepUrl" },
+          {
+            "type": "object",
+            "required": ["url"],
+            "additionalProperties": false,
+            "properties": {
+              "url": { "$ref": "#/$defs/DepUrl" }
+            }
+          }
+        ]
+      }
+    },
+    "MpmIndexUrl": {
+      "type": "string",
+      "pattern": "^github://[0-9a-zA-Z-_]+(/[0-9a-zA-Z-_]+)?$",
+      "description": "Index URL: github://owner or github://owner/repo where the index is."
+    },
+    "MpmIndex": {
+      "description": "mpm index.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/MpmIndexUrl",
+          "description": "mpm index."
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["url"],
+          "properties": {
+            "url": {
+              "$ref": "#/$defs/MpmIndexUrl",
+              "description": "mpm index URL."
+            },
+            "token": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9_]+$",
+              "description": "Env var name with the GitHub access token for accessing its packages."
+            }
+          },
+          "description": "mpm index."
+        }
+      ]
+    }
+  },
+  "type": "object",
+  "required": ["v", "name", "src"],
+  "additionalProperties": false,
+  "properties": {
+    "v": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Package version."
+    },
+    "name": {
+      "type": "string",
+      "description": "Package name."
+    },
+    "desc": {
+      "type": "string",
+      "description": "Package description."
+    },
+    "license": {
+      "type": "string",
+      "description": "License such as, for example, GPL-3.0-or-later."
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Package keywords."
+    },
+    "memory": {
+      "type": "object",
+      "description": "Memory configuration.",
+      "additionalProperties": false,
+      "properties": {
+        "heap": {
+          "type": "string",
+          "pattern": "^[0-9]+[KM]$",
+          "description": "Heap size: '^[0-9]+[KM]$'."
+        }
+      }
+    },
+    "urls": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Project URLs such as, for example, github, homepage, issues, etc."
+    },
+    "mpy_cross": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Configuration for mpy-cross.",
+      "properties": {
+        "dir": {
+          "type": "string",
+          "description": "Directory path where mpy-cross must generate the .mpy files."
+        },
+        "opt": {
+          "type": "integer",
+          "enum": [1, 2, 3],
+          "description": "mpy-cross optimization level."
+        }
+      }
+    },
+    "src": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Code source files to copy when installed.",
+      "required": ["dir", "include"],
+      "properties": {
+        "dir": {
+          "type": "string",
+          "description": "Project directory containing the source code."
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Files in the code source dir to include."
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Files in the code source dir to exclude."
+        }
+      }
+    },
+    "deps": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Project dependencies.",
+      "required": ["lib", "dev", "prod"],
+      "properties": {
+        "lib": {
+          "type": "string",
+          "description": "Path to the directory where to install the dependency libraries."
+        },
+        "prod": {
+          "$ref": "#/$defs/Deps",
+          "description": "Production dependencies."
+        },
+        "dev": {
+          "$ref": "#/$defs/Deps",
+          "description": "Development dependencies."
+        }
+      }
+    },
+    "mpmi": {
+      "type": "object",
+      "description": "Configuration of the mpm indexes.",
+      "additionalProperties": false,
+      "required": ["indexes"],
+      "properties": {
+        "indexes": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/MpmIndex" },
+          "description": "Configuration of the mpm indexes."
+        }
+      }
+    },
+    "scripts": {
+      "type": "object",
+      "description": "Scripts to run with mpm run.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["run"],
+        "additionalProperties": false,
+        "properties": {
+          "desc": {
+            "type": "string",
+            "description": "Script description."
+          },
+          "env": {
+            "description": "Environment variables to use in the script run.",
+            "oneOf": [
+              {
+                "type": ["string", "boolean"],
+                "enum": [".env", true, false],
+                "description": "Use the env variables defined in the .env file in the script run.",
+                "default": false
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "file": {
+                    "type": ["string", "boolean"],
+                    "enum": [".env", true, false],
+                    "description": "Use the env variables defined in the .env file in the script run.",
+                    "default": false
+                  },
+                  "vars": {
+                    "type": "object",
+                    "additionalProperties": { "type": "string" },
+                    "description": "Env variables to use in the script run, overwritten these defined in the .env file if set."
+                  }
+                }
+              }
+            ]
+          },
+          "params": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["type"],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["str"],
+                  "description": "Parameter data type."
+                },
+                "desc": {
+                  "type": "string",
+                  "description": "Parameter description."
+                },
+                "value": {
+                  "type": "string",
+                  "description": "Default value if argument not passed."
+                }
+              }
+            },
+            "description": "Parameters to pass to the script."
+          },
+          "out": {
+            "type": "string",
+            "enum": [
+              "cmdln",
+              "cmdln+out",
+              "env+cmdln",
+              "env+cmdln+out",
+              "none"
+            ],
+            "description": "What to display in the commands run.",
+            "default": "cmdln"
+          },
+          "run": {
+            "type": ["string", "array"],
+            "items": { "type": "string" },
+            "description": "Command line(s) to run."
+          }
+        }
+      }
+    }
+  }
+}

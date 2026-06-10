@@ -1,0 +1,22 @@
+{
+  "Generate the content for .gitignore": {
+    "prefix": ["mpm-gitignore"],
+    "scope": "ignore",
+    "include": [".gitignore"],
+    "body": [
+      "# dev",
+      ".coverage/",
+      ".ruff_cache/",
+      "build/",
+      "lib/",
+      "tests/.reports/",
+      "",
+      "# cache",
+      "__pycache__/",
+      "",
+      "# env",
+      ".env*",
+      ""
+    ]
+  }
+}

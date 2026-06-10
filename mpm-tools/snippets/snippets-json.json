@@ -1,0 +1,57 @@
+{
+  "Initial content for mpm.json": {
+    "prefix": ["mpm-init"],
+    "scope": "json",
+    "include": ["mpm*.json"],
+    "body": [
+      "{",
+      "  \"v\": \"0.1.0\",",
+      "  \"name\": \"${1:${TM_DIRECTORY/.*[\\\\\\/](.*)/$1/}}\",",
+      "  \"desc\": \"${2:Description.}\",",
+      "  \"license\": \"MIT\",",
+      "  \"src\": {",
+      "    \"dir\": \"${1:${TM_DIRECTORY/.*[\\\\\\/](.*)/$1/}}\",",
+      "    \"include\": [",
+      "      \"__init__.py\"",
+      "    ],",
+      "    \"exclude\": []",
+      "  },",
+      "  \"deps\": {",
+      "    \"lib\": \"deps/lib/\",",
+      "    \"prod\": [],",
+      "    \"dev\": []",
+      "  },",
+      "  \"mpmi\": {",
+      "    \"indexes\": {",
+      "      \"default\": \"github://mpmidev/default\"",
+      "      \"micropytest\": \"github://micropytest\"",
+      "    }",
+      "  },",
+      "  \"scripts\": {",
+      "    \"tests\": {",
+      "      \"desc\": \"Runs the unit tests.\",",
+      "      \"env\": true,",
+      "      \"run\": \"micropython -m micropytest run\"",
+      "    }",
+      "  }",
+      "}",
+      ""
+    ]
+  },
+  "Initial content for pyrightconfig.json": {
+    "prefix": ["mpm-pyright"],
+    "scope": "json",
+    "include": ["pyrightconfig.json"],
+    "body": [
+      "{",
+      "  \"pythonVersion\": \"3.10\",",
+      "  \"pythonPlatform\": \"All\",",
+      "  \"include\": [\"${1:${TM_DIRECTORY/.*[\\\\\\/](.*)/$1/}}\", \"tests/\"],",
+      "  \"exclude\": [\"**/__pycache__/\", \".git\"],",
+      "  \"extraPaths\": [\"deps/lib/\"],",
+      "  \"defineConstant\": {\"TYPE_CHECKING\": true}",
+      "}",
+      ""
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "Initial content for CONTRIBUTORS.md": {
+    "prefix": ["mpm-contributors"],
+    "include": ["CONTRIBUTORS.md"],
+    "body": [
+      "# Project contributors",
+      "",
+      "## Maintainers",
+      "",
+      "- Name (@name)",
+      "",
+      "## Core contributors",
+      "",
+      "- Name (@name)",
+      "",
+      "## Contributors",
+      "",
+      " - Name (@name)",
+      ""
+    ]
+  }
+}
