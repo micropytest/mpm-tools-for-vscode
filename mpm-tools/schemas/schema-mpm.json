@@ -3,10 +3,33 @@
   "title": "The mpm file schema.",
   "description": "The JSON Schema for the mpm.json file.",
   "$defs": {
-    "DepUrl": {
+    "GitHubDepUrl": {
       "type": "string",
-      "pattern": "^(fs|lib|github|mpmi(@[a-zA-Z0-9_]+)?)://[a-zA-Z0-9_-]+$",
-      "description": "Dependency URL: fs://, lib://, github://, mpmi:// or mpmi@index://."
+      "pattern": "^github://[a-zA-Z0-9-_]+/[a-zA-Z0-9_]+$",
+      "description": "Dependency hosted on a GitHub repo: github://owner/repo."
+    },
+    "FsDepUrl": {
+      "type": "string",
+      "pattern": "^fs://.+$",
+      "description": "Dependency hosted on the local filesystem: fs://path."
+    },
+    "LibDepUrl": {
+      "type": "string",
+      "pattern": "^lib://[a-zA-Z0-9_]+$",
+      "description": "Dependency hosted on the MicroPython lib."
+    },
+    "MpmiDepUrl": {
+      "type": "string",
+      "pattern": "^mpmi(@[a-zA-Z0-9_]+)?://[a-zA-Z0-9_]+$",
+      "description": "Dependency hosted on an mpm index."
+    },
+    "DepUrl": {
+      "oneOf": [
+        { "$ref": "#/$defs/GitHubDepUrl" },
+        { "$ref": "#/$defs/FsDepUrl" },
+        { "$ref": "#/$defs/LibDepUrl" },
+        { "$ref": "#/$defs/MpmiDepUrl" }
+      ]
     },
     "Deps": {
       "type": "array",
