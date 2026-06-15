@@ -15,7 +15,7 @@
     },
     "LibDepUrl": {
       "type": "string",
-      "pattern": "^lib://[a-zA-Z0-9_]+$",
+      "pattern": "^lib://[a-zA-Z0-9_-]+$",
       "description": "Dependency hosted on the MicroPython lib."
     },
     "MpmiDepUrl": {
@@ -201,9 +201,9 @@
         }
       }
     },
-    "scripts": {
+    "jobs": {
       "type": "object",
-      "description": "Scripts to run with mpm run.",
+      "description": "Jobs executable with 'mpm run'.",
       "additionalProperties": {
         "type": "object",
         "required": ["run"],
@@ -211,15 +211,15 @@
         "properties": {
           "desc": {
             "type": "string",
-            "description": "Script description."
+            "description": "Job description."
           },
           "env": {
-            "description": "Environment variables to use in the script run.",
+            "description": "Environment variables to use in the job run.",
             "oneOf": [
               {
                 "type": ["string", "boolean"],
                 "enum": [".env", true, false],
-                "description": "Use the env variables defined in the .env file in the script run.",
+                "description": "Use the env variables defined in the .env file in the job run.",
                 "default": false
               },
               {
@@ -229,13 +229,13 @@
                   "file": {
                     "type": ["string", "boolean"],
                     "enum": [".env", true, false],
-                    "description": "Use the env variables defined in the .env file in the script run.",
+                    "description": "Use the env variables defined in the .env file in the job run.",
                     "default": false
                   },
                   "vars": {
                     "type": "object",
                     "additionalProperties": { "type": "string" },
-                    "description": "Env variables to use in the script run, overwritten these defined in the .env file if set."
+                    "description": "Env variables to use in the job run, overwritten these defined in the .env file if set."
                   }
                 }
               }
@@ -263,7 +263,7 @@
                 }
               }
             },
-            "description": "Parameters to pass to the script."
+            "description": "Parameters to pass to the job."
           },
           "out": {
             "type": "string",
