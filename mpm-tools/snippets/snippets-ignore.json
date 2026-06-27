@@ -7,15 +7,16 @@
       "# dev",
       ".coverage/",
       ".ruff_cache/",
-      "build/",
-      "lib/",
-      "tests/.reports/",
+      "/build/",
+      "/deps/*",
+      "!/deps/typings/",
+      "/tests/.reports/",
       "",
       "# cache",
       "__pycache__/",
       "",
       "# env",
-      ".env*",
+      "/.env*",
       ""
     ]
   }
