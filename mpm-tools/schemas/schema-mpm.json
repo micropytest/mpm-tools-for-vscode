@@ -272,6 +272,7 @@
               "cmdln+out",
               "env+cmdln",
               "env+cmdln+out",
+              "out",
               "none"
             ],
             "description": "What to display in the commands run.",
