@@ -50,6 +50,7 @@
       "  \"geminicodeassist.inlineSuggestions.suggestionSpeed\": \"Slow\",",
       "  \"chat.agent.enabled\": false,",
       "  \"chat.disableAIFeatures\": true",
+      "  \"mermaidChart.showGenerateDiagramCodeLens\": false",
       "}",
       ""
     ]
